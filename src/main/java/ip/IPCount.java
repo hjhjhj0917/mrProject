@@ -1,4 +1,4 @@
-package wc;
+package ip;
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -7,8 +7,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class WordCount {
-
+public class IPCount {
     public static void main(String[] args) throws Exception {
 
         if (args.length != 2) {
@@ -16,16 +15,16 @@ public class WordCount {
             System.exit(-1);
         }
 
-        Job job = Job.getInstance(); // 하둡에서는 작업 하나 하나를 job이라고 한다.
+        Job job = Job.getInstance();
 
-        job.setJarByClass(WordCount.class); // 어디서 실행될지 모르기 때문에 this를 사용해서는 안된다.
-        job.setJobName("Word Count");
+        job.setJarByClass(IPCount.class);
+        job.setJobName("IP Count");
 
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        job.setMapperClass(WordCountMapper.class); // 맵 역할을 하는 자바파일 설정
-        job.setReducerClass(WordCountReducer.class); // 리듀스 역할을 하는 자바파일 설정
+        job.setMapperClass(IPCountMapper.class);
+        job.setReducerClass(IPCountReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 

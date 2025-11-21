@@ -1,4 +1,4 @@
-package wc;
+package tool;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -7,7 +7,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 
-public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class WordCount2Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -16,9 +16,7 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritabl
 
         for (String word : line.split("\\W+")) {
 
-            word = word.toLowerCase();
-
-            if (word.length() >= 3) {
+            if (!word.isEmpty()) {
                 context.write(new Text(word), new IntWritable(1));
             }
         }
